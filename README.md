@@ -7,9 +7,9 @@ This guide explores how AWS Virtual Private Clouds can be created using Terrafor
 We use Terraform to build an AWS VPC along with private/public Subnet and Network Gateway's for the VPC. 
 We will be making a VPC with 6 Subnets: 3 Private Subnets and 3 Public Subnets, 1 NAT Gateways, 1 Internet Gateway, and 2 Route Tables.
 We will also be creating a bastion host server , a webserver and a database server.
-> Architecture for Amazon VPC on AWS
+- Architecture for Amazon VPC on AWS
 ![architecture_diagram](https://user-images.githubusercontent.com/91482551/138722220-8ad11ed6-4ba9-4396-ae9d-7bae17112904.png)
-> Bastion Host
+- Bastion Host
 ![Bastion Host](https://user-images.githubusercontent.com/91482551/138719481-6decabb6-a659-4eca-9554-cb2db613c8a6.jpg)
 
 ### Prerequisites for this project
