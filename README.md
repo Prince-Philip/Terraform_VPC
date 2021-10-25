@@ -46,6 +46,7 @@ variable "access_key" {}
 variable "secret_key" {}
 variable "vpc_cidr" {}
 variable "project" {}
+variable "vpc_subnets" {}  
 ```
 ### 3.Create a provider.tf file 
 ```sh
@@ -60,11 +61,12 @@ Terraform will automatically load variables from those files.
 If any automatically loaded variables have the same names as variables specified in the Terraform Cloud workspace, the workspace's values will override the automatic values.
 
 ```sh
-region     = "put-your-region-here"
-access_key = "put-your-access-key-here"
-secret_key = "put-your-secret-key-here"
-project    = "name-of-your-project"
-vpc_cidr   = "X.X.X.X/X"
+region      = "enter-your-region-here"
+access_key  = "enter-your-access-key-here"
+secret_key  = "enter-your-secret-key-here"
+project     = "enter-name-of-your-project"
+vpc_cidr    = "X.X.X.X/X"
+vpc_subnets = "enter required number"
 ```
 ### 5.We are ready to init!
 ```sh
@@ -105,7 +107,7 @@ resource "aws_internet_gateway" "igw" {
 resource "aws_subnet" "public1" {
     
   vpc_id                   = aws_vpc.vpc.id
-  cidr_block               = cidrsubnet(var.vpc_cidr, 3, 0)
+  cidr_block               = cidrsubnet(var.vpc_cidr, var.vpc_subnets, 0)
   availability_zone        = element(data.aws_availability_zones.available.names,0)
   map_public_ip_on_launch  = true
   tags = {
@@ -117,7 +119,7 @@ resource "aws_subnet" "public1" {
 ```sh
 resource "aws_subnet" "public2" {
   vpc_id                   = aws_vpc.vpc.id
-  cidr_block               = cidrsubnet(var.vpc_cidr, 3, 1)
+  cidr_block               = cidrsubnet(var.vpc_cidr, var.vpc_subnets, 1)
   availability_zone        = element(data.aws_availability_zones.available.names,1)
   map_public_ip_on_launch  = true
   tags = {
@@ -129,7 +131,7 @@ resource "aws_subnet" "public2" {
 ```sh
 resource "aws_subnet" "public3" {
   vpc_id                   = aws_vpc.vpc.id
-  cidr_block               = cidrsubnet(var.vpc_cidr, 3, 2)
+  cidr_block               = cidrsubnet(var.vpc_cidr, var.vpc_subnets, 2)
   availability_zone        = element(data.aws_availability_zones.available.names,2)
   map_public_ip_on_launch  = true
   tags = {
@@ -141,7 +143,7 @@ resource "aws_subnet" "public3" {
 ```sh
 resource "aws_subnet" "private1" {
   vpc_id                   = aws_vpc.vpc.id
-  cidr_block               = cidrsubnet(var.vpc_cidr, 3, 3)
+  cidr_block               = cidrsubnet(var.vpc_cidr, var.vpc_subnets, 3)
   availability_zone        = element(data.aws_availability_zones.available.names,3)
   map_public_ip_on_launch  = true
   tags = {
@@ -153,7 +155,7 @@ resource "aws_subnet" "private1" {
 ```sh
 resource "aws_subnet" "private2" {
   vpc_id                   = aws_vpc.vpc.id
-  cidr_block               = cidrsubnet(var.vpc_cidr, 3, 4)
+  cidr_block               = cidrsubnet(var.vpc_cidr, var.vpc_subnets, 4)
   availability_zone        = element(data.aws_availability_zones.available.names,4)
   map_public_ip_on_launch  = true
   tags = {
@@ -165,7 +167,7 @@ resource "aws_subnet" "private2" {
 ```sh
 resource "aws_subnet" "private3" {
   vpc_id                   = aws_vpc.vpc.id
-  cidr_block               = cidrsubnet(var.vpc_cidr, 3, 5)
+  cidr_block               = cidrsubnet(var.vpc_cidr, var.vpc_subnets, 5)
   availability_zone        = element(data.aws_availability_zones.available.names,5)
   map_public_ip_on_launch  = true
   tags = {
