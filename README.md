@@ -4,6 +4,7 @@
 
 This guide explores how AWS Virtual Private Clouds can be created using Terraform Tool. 
 
+Infrastructure as Code (IaC) is a key part of a balanced cloud breakfast. And when it comes to IaC tools, Terraform is one of the top tools out there.
 We use Terraform to build an AWS VPC along with private/public Subnet and Network Gateway's for the VPC. 
 We will be making a VPC with 6 Subnets: 3 Private Subnets and 3 Public Subnets, 1 NAT Gateways, 1 Internet Gateway, and 2 Route Tables.
 We will also be creating a bastion host server , a webserver and a database server.
