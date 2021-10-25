@@ -96,7 +96,7 @@ resource "aws_internet_gateway" "igw" {
 }
 ```
 
-> Creating public1 Subnet
+> Creating public Subnet 01
 ```sh
 resource "aws_subnet" "public1" {
     
@@ -109,7 +109,7 @@ resource "aws_subnet" "public1" {
   }
 }
 ```
-> Creating public2 Subnet
+> Creating public Subnet 02
 ```sh
 resource "aws_subnet" "public2" {
   vpc_id                   = aws_vpc.vpc.id
@@ -121,7 +121,7 @@ resource "aws_subnet" "public2" {
   }
 }
 ```
-> Creating public3 Subnet
+> Creating public Subnet 03
 ```sh
 resource "aws_subnet" "public3" {
   vpc_id                   = aws_vpc.vpc.id
@@ -133,7 +133,7 @@ resource "aws_subnet" "public3" {
   }
 }
 ```
-> Creating private1 Subnet
+> Creating private Subnet 01
 ```sh
 resource "aws_subnet" "private1" {
   vpc_id                   = aws_vpc.vpc.id
@@ -145,7 +145,7 @@ resource "aws_subnet" "private1" {
   }
 }
 ```
-> Creating private2 Subnet
+> Creating private Subnet 02
 ```sh
 resource "aws_subnet" "private2" {
   vpc_id                   = aws_vpc.vpc.id
@@ -157,7 +157,7 @@ resource "aws_subnet" "private2" {
   }
 }
 ```
-> Creating private3 Subnet
+> Creating private Subnet 03
 ```sh
 resource "aws_subnet" "private3" {
   vpc_id                   = aws_vpc.vpc.id
@@ -265,7 +265,7 @@ output "aws_route_table_private" {
 value = aws_route_table.private.id
 }
 ```
-> SecurityGroup bastion
+> Create a Security Group bastion
 ```sh
 resource "aws_security_group" "bastion" {
     
@@ -308,7 +308,7 @@ resource "aws_security_group" "bastion" {
   }
 }
 ```
-> SecurityGroup webserver
+> Create a Security Group webserver
 ```sh
 resource "aws_security_group" "webserver" {
     
@@ -374,7 +374,7 @@ resource "aws_security_group" "webserver" {
   }
 }
 ```
-> SecurityGroup database
+> Create a Security Group database
 ```sh
 resource "aws_security_group" "database" {
     
@@ -431,6 +431,64 @@ resource "aws_security_group" "database" {
   }
 }
 
+```
+>  Create a Keypair
+```sh
+  resource "aws_key_pair" "key" {
+  key_name   = "${var.project}-key"
+  public_key = file("/root/aws-projects-key.pub")
+  tags = {
+    Name = "${var.project}-key"
+  }
+}
+```
+>  Create a bastion instance
+```sh
+  resource "aws_instance" "bastion" {
+
+  ami                          =  "ami-041d6256ed0f2061c"
+  instance_type                =  "t2.micro"
+  subnet_id                    =  aws_subnet.public2.id
+  vpc_security_group_ids       =  [ aws_security_group.bastion.id]
+  key_name                     =  aws_key_pair.key.id
+  tags = {
+    Name = "${var.project}-bastion"
+    Project = var.project
+  }
+
+}
+```
+>  Create a webserver instance
+```sh
+  resource "aws_instance" "webserver" {
+
+  ami                          =  "ami-041d6256ed0f2061c"
+  instance_type                =  "t2.micro"
+  subnet_id                    =  aws_subnet.public1.id
+  vpc_security_group_ids       =  [ aws_security_group.webserver.id]
+  key_name                     =  aws_key_pair.key.id
+  tags = {
+    Name = "${var.project}-webserver"
+    Project = var.project
+  }
+  
+}
+```
+>  Create a database instance
+```sh
+resource "aws_instance" "database" {
+
+  ami                          =  "ami-041d6256ed0f2061c"
+  instance_type                =  "t2.micro"
+  subnet_id                    =  aws_subnet.private1.id
+  vpc_security_group_ids       =  [ aws_security_group.database.id]
+  key_name                     =  aws_key_pair.key.id
+  tags = {
+    Name = "${var.project}-database"
+    Project = var.project
+  }
+  
+}
 ```
 #### Lets validate 
 ```sh
