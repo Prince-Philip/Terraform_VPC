@@ -38,7 +38,7 @@ resource "aws_internet_gateway" "igw" {
 resource "aws_subnet" "public1" {
     
   vpc_id                   = aws_vpc.vpc.id
-  cidr_block               = cidrsubnet(var.vpc_cidr, 3, 0)
+  cidr_block               = cidrsubnet(var.vpc_cidr, var.vpc_subnets, 0)
   availability_zone        = element(data.aws_availability_zones.az.names,0)
   map_public_ip_on_launch  = true
   tags = {
@@ -53,7 +53,7 @@ resource "aws_subnet" "public1" {
 resource "aws_subnet" "public2" {
     
   vpc_id                   = aws_vpc.vpc.id
-  cidr_block               = cidrsubnet(var.vpc_cidr, 3, 1)
+  cidr_block               = cidrsubnet(var.vpc_cidr, var.vpc_subnets, 1)
   availability_zone        = element(data.aws_availability_zones.az.names,1)
   map_public_ip_on_launch  = true
   tags = {
@@ -69,7 +69,7 @@ resource "aws_subnet" "public2" {
 resource "aws_subnet" "public3" {
     
   vpc_id                   = aws_vpc.vpc.id
-  cidr_block               = cidrsubnet(var.vpc_cidr, 3, 2)
+  cidr_block               = cidrsubnet(var.vpc_cidr, var.vpc_subnets, 2)
   availability_zone        = element(data.aws_availability_zones.az.names,2)
   map_public_ip_on_launch  = true
   tags = {
@@ -84,7 +84,7 @@ resource "aws_subnet" "public3" {
 resource "aws_subnet" "private1" {
     
   vpc_id                   = aws_vpc.vpc.id
-  cidr_block               = cidrsubnet(var.vpc_cidr, 3, 3)
+  cidr_block               = cidrsubnet(var.vpc_cidr, var.vpc_subnets, 3)
   availability_zone        = element(data.aws_availability_zones.az.names,0)
   map_public_ip_on_launch  = true
   tags = {
@@ -99,7 +99,7 @@ resource "aws_subnet" "private1" {
 resource "aws_subnet" "private2" {
     
   vpc_id                   = aws_vpc.vpc.id
-  cidr_block               = cidrsubnet(var.vpc_cidr, 3, 4)
+  cidr_block               = cidrsubnet(var.vpc_cidr, var.vpc_subnets, 4)
   availability_zone        = element(data.aws_availability_zones.az.names,1)
   map_public_ip_on_launch  = true
   tags = {
@@ -115,7 +115,7 @@ resource "aws_subnet" "private2" {
 resource "aws_subnet" "private3" {
     
   vpc_id                   = aws_vpc.vpc.id
-  cidr_block               = cidrsubnet(var.vpc_cidr, 3, 5)
+  cidr_block               = cidrsubnet(var.vpc_cidr, var.vpc_subnets, 5)
   availability_zone        = element(data.aws_availability_zones.az.names,2)
   map_public_ip_on_launch  = true
   tags = {
