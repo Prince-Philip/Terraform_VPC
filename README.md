@@ -507,7 +507,7 @@ terraform plan
 ```
 #### Lets apply 
 ```sh
-terraform apply
+terraform apply -var-file="variables.tfvars"
 ```
 
 ----
