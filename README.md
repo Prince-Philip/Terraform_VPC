@@ -8,6 +8,9 @@ We use Terraform to build an AWS VPC along with private/public Subnet and Networ
 We will be making a VPC with 6 Subnets: 3 Private Subnets and 3 Public Subnets, 1 NAT Gateways, 1 Internet Gateway, and 2 Route Tables.
 We will also be creating a bastion host server , a webserver and a database server.
 
+![Bastion Host](https://user-images.githubusercontent.com/91482551/138719481-6decabb6-a659-4eca-9554-cb2db613c8a6.jpg)
+
+
 ### Prerequisites for this project
 - Need a IAM user access with attached policies for the creation of VPC.
 - Knowledge to the working principles of each AWS services especially VPC, EC2 and IP Subnetting.
